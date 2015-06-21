@@ -65,7 +65,7 @@ def download_img(start,end=1425):
 
 if __name__ == "__main__":
 	start = input("输入起始页码,你可以回车跳过,默认从900页开始:")
-	if start.isdigit() and start >= 900:
-		download_img(start)
+	if start.isdigit() and int(start) >= 900:
+		download_img(int(start))
 	else:
 		download_img(900)
