@@ -58,7 +58,7 @@ while queue:
 		re_obj = re.compile(reg, re.I)
 		urllist = re_obj.findall(html)
 		for x in urllist:
-			if re.match(reg_1,x) and x not in visited and x not in detail:
+			if re.match(reg_1,x) and x not in detail:
 				detail |= {x}
 				f.write(x+'\n')
 			elif re.match(reg_2,x) and x not in node:
