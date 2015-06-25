@@ -36,7 +36,11 @@ def getHtml(url,head = {
 	html = page.read().decode(decode_method)
 	return html
 	
-f = codecs.open('newsgd.txt','a+',encoding='utf-8')  
+f = codecs.open('newsgd.txt','a+',encoding='utf-8') 
+reg = r'http://www.newsgd.com[^\.]*.htm'
+reg_1 = r'http://www.newsgd.com[^\.]*/'+year_month+'/'+day+'/content_[\d]{3,}.htm'
+reg_2 = r'http://www.newsgd.com[^\.]*/(default|default_[\d]{1}|node_[\d]{6}|node_[\d]{6}_[\d]{1}).htm'
+			
 while queue:
 	year_month = now.strftime('%Y-%m')
 	day = now.strftime('%d')
@@ -51,14 +55,10 @@ while queue:
 	except Exception as e:
 		continue
 	else:
-		reg = r'http://www.newsgd.com[^\.]*.htm'
-		#reg = r'http://[\w]{1,15}.southcn.com[^\.]*.htm'  # this reg for southcn.com
 		re_obj = re.compile(reg, re.I)
 		urllist = re_obj.findall(html)
 		for x in urllist:
-			reg = r'http://www.newsgd.com[^\.]*/'+year_month+'/'+day+'/content_[\d]{3,}.htm'
-			reg_2 = r'http://www.newsgd.com[^\.]*/(default|default_[\d]{1}|node_[\d]{6}|node_[\d]{6}_[\d]{1}).htm'
-			if re.match(reg,x) and x not in visited and x not in detail:
+			if re.match(reg_1,x) and x not in visited and x not in detail:
 				detail |= {x}
 				f.write(x+'\n')
 			elif re.match(reg_2,x) and x not in node:
