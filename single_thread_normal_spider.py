@@ -8,10 +8,10 @@ import socket
 import codecs
 socket.defaulttimeout = 3
  
-queue = deque()
-visited = set()
-detail = set()
-node = set()
+queue = deque()  #等待采集概览队列
+visited = set()  #已经采集的队列
+detail = set()   #所有细览页面
+node = set()     #所有概览页面
 now = datetime.now()
 
 url = 'http://www.newsgd.com/newindextest/'  # 入口页面, 可以换成别的
@@ -46,7 +46,6 @@ reg_2 = r'http://www.newsgd.com[^\.]*/(default|default_[\d]{1}|node_[\d]{6}|node
 while queue:
 	url = queue.popleft()  # 队首元素出队
 	visited |= {url}  # 标记为已访问
-	node |= {url}
 	print('已经抓取: ' + str(cnt) + '   正在抓取 <---  ' + url)
 	cnt += 1
 	try:
