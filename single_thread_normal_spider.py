@@ -37,14 +37,13 @@ def getHtml(url,head = {
 	return html
 	
 f = codecs.open('newsgd.txt','a+',encoding='utf-8') 
+year_month = now.strftime('%Y-%m')
+day = now.strftime('%d')
 reg = r'http://www.newsgd.com[^\.]*.htm'
 reg_1 = r'http://www.newsgd.com[^\.]*/'+year_month+'/'+day+'/content_[\d]{3,}.htm'
 reg_2 = r'http://www.newsgd.com[^\.]*/(default|default_[\d]{1}|node_[\d]{6}|node_[\d]{6}_[\d]{1}).htm'
 			
 while queue:
-	year_month = now.strftime('%Y-%m')
-	day = now.strftime('%d')
-	
 	url = queue.popleft()  # 队首元素出队
 	visited |= {url}  # 标记为已访问
 	node |= {url}
