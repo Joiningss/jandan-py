@@ -12,7 +12,7 @@ socket.setdefaulttimeout(2)
 #自定义opener
 def makeMyOpener():
     cookie_support = urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar())
-	#proxy_support = urllib.request.ProxyHandler({"http":"115.159.50.56:8080"})
+    #proxy_support = urllib.request.ProxyHandler({"http":"115.159.50.56:8080"})
 	#若需要使用代理,请把proxy_support参数加入下面
 	opener = urllib.request.build_opener(cookie_support,urllib.request.HTTPHandler) 
 	urllib.request.install_opener(opener)
