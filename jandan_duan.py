@@ -67,15 +67,12 @@ def crawler(start,end):
 	print("现在开始启动爬虫!")
 	for i in range(start,end):
 		url = 'http://jandan.net/duan/page-'+str(i)+'#comments'
-		try:
-			html = getHtml(url)
-		except Exception as e:
-			continue
+		html = getHtml(url)
 		soup = BeautifulSoup(html)
 		authors = soup.find_all('div',class_='author')
 		texts = soup.find_all('div',class_='text')
 		votes = soup.find_all('div',class_='vote')
-		print('正在解析第' + str(i) + '页')
+		print('正在解析第' + str(i) + '页:'+url)
 		
 		for j in range(len(authors)):
 			stext = ''
