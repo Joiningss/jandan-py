@@ -10,19 +10,35 @@ targetDir = r"E:\Pictures\ooxx"
 socket.setdefaulttimeout(2)
 
 #自定义opener
-def makeMyOpener(head = {
-  'Connection': 'Keep-Alive',
-  'Accept': 'text/html, application/xhtml+xml, */*',
-  'Accept-Language': 'zh_CN,zh;q=0.8',
-  'User-Agent': 'Mozilla/5.0 ( compatible; MISE 5.5; Windows NT)' 
-}):
-    cj = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener()
-    header = []
-    for key, value in head.items():
-        elem = (key, value)
-        header.append(elem)
-    opener.addheaders = header
+def makeMyOpener():
+    cookie_support = urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar())
+	#proxy_support = urllib.request.ProxyHandler({"http":"115.159.50.56:8080"})
+	#若需要使用代理,请把proxy_support参数加入下面
+	opener = urllib.request.build_opener(cookie_support,urllib.request.HTTPHandler) 
+	urllib.request.install_opener(opener)
+	user_agents = [
+		'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11','Opera/9.25 (Windows NT 5.1; U; en)',
+		'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
+		'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)',
+		'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)',
+		'Mozilla/5.0 (iPad; U; CPU OS 4_2_1 like Mac OS X; zh-cn) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5',
+		'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11',
+		'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11',
+		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',
+		'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Maxthon 2.0)',
+		'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0)',
+		'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; The World)',
+		'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)',
+		'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5',
+		'Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/build-1107180945; U; en-GB) Presto/2.8.149 Version/11.10',
+		'Mozilla/4.0 (compatible; MSIE 6.0; ) Opera/UCWEB7.0.2.37/28/999',
+		'Baiduspider+(+http://www.baidu.com/search/spider.htm)',
+		'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+		'Sogou web spider/3.0(+http://www.sogou.com/docs/help/webmasters.htm#07)',
+		'Mozilla/5.0 (compatible; YodaoBot/1.0; http://www.yodao.com/help/webmaster/spider/)',
+		]
+	agent = random.choice(user_agents)
+	opener.addheaders = [("User-agent",agent),("Accept","*/*"),('Referer','http://www.baidu.com'),('Host','http://jandan.net')]
     return opener
 
 #图片存储路径
